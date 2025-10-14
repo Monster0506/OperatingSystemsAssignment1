@@ -4,6 +4,13 @@
 #include <iostream>
 
 #include "shared.hpp"
+
+void* consume(void* arg) {
+    SharedData* shm = static_cast<SharedData*>(arg);
+
+    return nullptr;
+}
+
 int main() {
     int fd = shm_open(NAME, 02, 0666);
     if (fd == -1) {
@@ -21,5 +28,6 @@ int main() {
     }
 
     auto* shm = static_cast<SharedData*>(addr);
+    // start consumer thread
     return 0;
 }
