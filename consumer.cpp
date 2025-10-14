@@ -15,6 +15,9 @@ void* consume(void* arg) {
         int item =
             shm->buffer[shm->count - 1];  // get the last item from the buffer
         shm->count -= 1;
+
+        std::cout << "[Consumer] Consumed item: " << item
+                  << " | Count: " << shm->count << std::endl;
     }
 
     return nullptr;
