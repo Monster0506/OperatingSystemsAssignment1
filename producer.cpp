@@ -7,6 +7,13 @@
 void* produce(void* arg) {
     SharedData* shm = static_cast<SharedData*>(arg);
     int item = 0;
+
+    while (true) {
+        item++;
+        sem_wait(&shm->empty);  // wait until there is an empty slot
+        sem_wait(&shm->mutex);  // wait until we have the lock
+    }
+
     return nullptr;
 }
 
