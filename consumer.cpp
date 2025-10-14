@@ -8,6 +8,11 @@
 void* consume(void* arg) {
     SharedData* shm = static_cast<SharedData*>(arg);
 
+    while (true) {
+        sem_wait(&shm->full);   // wait until we have an item
+        sem_wait(&shm->mutex);  // wait on lock
+    }
+
     return nullptr;
 }
 
