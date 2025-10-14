@@ -50,5 +50,10 @@ int main() {
         close(fd);
         return 1;
     }
+
+    pthread_join(tid, nullptr);
+
+    munmap(addr, sizeof(SharedData));
+    close(fd);
     return 0;
 }
