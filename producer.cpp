@@ -15,6 +15,9 @@ void* produce(void* arg) {
 
         shm->buffer[shm->count] = item;  // add an item
         shm->count += 1;
+
+        std::cout << "[Producer] Added item: " << item
+                  << " | Count: " << shm->count << std::endl;
     }
 
     return nullptr;
