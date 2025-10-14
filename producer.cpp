@@ -1,3 +1,6 @@
+#include <fcntl.h>
+#include <pthread.h>
+#include <semaphore.h>
 #include <sys/mman.h>
 #include <unistd.h>
 
@@ -42,7 +45,8 @@ int main() {
         return 1;
     }
 
-    void* addr = mmap(nullptr, sizeof(SharedData), 0x3, 0x01, fd, 0);
+    void* addr = mmap(nullptr, sizeof(SharedData), PROT_READ | PROT_WRITE,
+                      MAP_SHARED, fd, 0);
     if (addr == MAP_FAILED) {
         std::cout << "Error: mmap failed" << std::endl;
         close(fd);
@@ -50,6 +54,13 @@ int main() {
     }
 
     auto* shm = static_cast<SharedData*>(addr);
+
+    // Initialize semaphores
+    sem_init(&shm->mutex, 1, 1);  // binary semaphore for mutual exclusion
+    sem_init(&shm->empty, 1, MAX_ITEMS);  // count of empty slots
+    sem_init(&shm->full, 1, 0);           // count of full slots
+    shm->count = 0;
+
     // start producer thread
     pthread_t tid;
     if (pthread_create(&tid, nullptr, produce, shm) != 0) {
@@ -58,5 +69,12 @@ int main() {
         close(fd);
         return 1;
     }
+
+    pthread_join(tid, nullptr);
+
+    munmap(addr, sizeof(SharedData));
+    close(fd);
+    shm_unlink(NAME);
+
     return 0;
 }
