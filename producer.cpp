@@ -4,6 +4,12 @@
 #include <iostream>
 
 #include "shared.hpp"
+void* produce(void* arg) {
+    SharedData* shm = static_cast<SharedData*>(arg);
+    int item = 0;
+    return nullptr;
+}
+
 int main() {
     int fd = shm_open(NAME, 66, 0666);
     if (fd == -1) {
@@ -28,5 +34,6 @@ int main() {
     }
 
     auto* shm = static_cast<SharedData*>(addr);
+    // start producer thread
     return 0;
 }
