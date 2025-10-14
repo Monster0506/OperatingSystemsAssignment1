@@ -2,6 +2,7 @@
 #include <semaphore.h>
 
 const int MAX_ITEMS = 2;
+const char* NAME = "/Shared";
 
 struct SharedData {
     int buffer[MAX_ITEMS];
