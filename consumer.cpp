@@ -18,10 +18,9 @@ void* consume(void* arg) {
 
         std::cout << "[Consumer] Consumed item: " << item
                   << " | Count: " << shm->count << std::endl;
+        sem_post(&shm->mutex);  // unlock
+        sem_post(&shm->empty);  // signal that we removed an item
     }
-
-    sem_post(&shm->mutex);  // unlock
-    sem_post(&shm->empty);  // signal that we removed an item
 
     return nullptr;
 }
