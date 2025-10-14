@@ -11,6 +11,10 @@ void* consume(void* arg) {
     while (true) {
         sem_wait(&shm->full);   // wait until we have an item
         sem_wait(&shm->mutex);  // wait on lock
+
+        int item =
+            shm->buffer[shm->count - 1];  // get the last item from the buffer
+        shm->count -= 1;
     }
 
     return nullptr;
