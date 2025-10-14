@@ -1,4 +1,5 @@
 #include <sys/mman.h>
+#include <unistd.h>
 
 #include <iostream>
 
@@ -11,5 +12,12 @@ int main() {
         return 1;
     }
 
+    void *addr = mmap(nullptr, sizeof(SharedData), 0x3, 0x01, fd, 0);
+
+    if (addr == MAP_FAILED) {
+        std::cout << "Error: mmap failed" << std::endl;
+        close(fd);
+        return 1;
+    }
     return 0;
 }
