@@ -20,6 +20,8 @@ void* consume(void* arg) {
                   << " | Count: " << shm->count << std::endl;
     }
 
+    sem_post(&shm->mutex);  // unlock
+
     return nullptr;
 }
 
