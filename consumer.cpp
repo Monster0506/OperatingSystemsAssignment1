@@ -21,6 +21,7 @@ void* consume(void* arg) {
     }
 
     sem_post(&shm->mutex);  // unlock
+    sem_post(&shm->empty);  // signal that we removed an item
 
     return nullptr;
 }
