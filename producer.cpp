@@ -12,6 +12,9 @@ void* produce(void* arg) {
         item++;
         sem_wait(&shm->empty);  // wait until there is an empty slot
         sem_wait(&shm->mutex);  // wait until we have the lock
+
+        shm->buffer[shm->count] = item;  // add an item
+        shm->count += 1;
     }
 
     return nullptr;
