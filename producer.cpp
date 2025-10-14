@@ -18,6 +18,9 @@ void* produce(void* arg) {
 
         std::cout << "[Producer] Added item: " << item
                   << " | Count: " << shm->count << std::endl;
+
+        sem_post(&shm->mutex);  // unlock
+        sem_post(&shm->full);   // signal that we added an item
     }
 
     return nullptr;
