@@ -16,6 +16,8 @@ int main() {
         std::cout << "Error: failed to fit shared memory block to size of "
                      "shared data ("
                   << NAME << ")" << std::endl;
+        close(fd);
+        return 1;
     }
 
     return 0;
