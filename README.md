@@ -93,7 +93,6 @@ Both will also need to check and set flags indicating if they have added or remo
 
 ## Producer Thread
 
-
 ```c
 void* produce(void* arg) {
     SharedData* shm = static_cast<SharedData*>(arg);
@@ -101,17 +100,17 @@ void* produce(void* arg) {
 
     while (true) {
         item++;
-        sem_wait(&shm->empty);  // wait until there is an empty slot
-        sem_wait(&shm->mutex);  // wait until we have the lock
+        sem_wait(&shm->empty);
+        sem_wait(&shm->mutex);
 
-        shm->buffer[shm->count] = item;  // add an item
+        shm->buffer[shm->count] = item;
         shm->count += 1;
 
         std::cout << "[Producer] Added item: " << item
                   << " | Count: " << shm->count << std::endl;
 
-        sem_post(&shm->mutex);  // unlock
-        sem_post(&shm->full);   // signal that we added an item
+        sem_post(&shm->mutex);
+        sem_post(&shm->full);
     }
 
     return nullptr;
@@ -137,4 +136,36 @@ We increment count to indicate we are moving to the next available spot, or outs
 We then return the mutex lock, and signal that we have added an item and at least one slot is full
 
 
+## Consumer Thread
+
+```c
+
+void* consume(void* arg) {
+    SharedData* shm = static_cast<SharedData*>(arg);
+
+    while (true) {
+        sem_wait(&shm->full);
+        sem_wait(&shm->mutex);
+
+        int item =
+            shm->buffer[shm->count - 1];
+        shm->count -= 1;
+
+        std::cout << "[Consumer] Consumed item: " << item
+                  << " | Count: " << shm->count << std::endl;
+        sem_post(&shm->mutex);
+        sem_post(&shm->empty);
+    }
+
+    return nullptr;
+}
+```
+
+This thread also takes the shared memory location, and casts it to our `SharedData` struct
+
+It waits until the producer indicates that an item has been added (`full`) and it gets the `mutex`. 
+
+It then pops the item from the queue, and decrements count to indicate that an item has been removed.
+
+Finally, it releases the `mutex` and changes the empty flag to indicate that there is now an empty slot.
 
