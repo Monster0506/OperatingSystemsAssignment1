@@ -169,3 +169,82 @@ It then pops the item from the queue, and decrements count to indicate that an i
 
 Finally, it releases the `mutex` and changes the empty flag to indicate that there is now an empty slot.
 
+## Setup of Producer Thread
+
+
+```c
+int fd = shm_open(NAME, 66, 0666);
+if (fd == -1) {
+    std::cout << "Error: failed to open shared memory (" << NAME << ")"
+                << std::endl;
+    return 1;
+}
+
+if (ftruncate(fd, sizeof(SharedData)) == -1) {
+    std::cout << "Error: failed to fit shared memory block to size of "
+                    "shared data ("
+                << NAME << ")" << std::endl;
+    close(fd);
+    return 1;
+}
+
+void* addr = mmap(nullptr, sizeof(SharedData), PROT_READ | PROT_WRITE,
+                    MAP_SHARED, fd, 0);
+if (addr == MAP_FAILED) {
+    std::cout << "Error: mmap failed" << std::endl;
+    close(fd);
+    return 1;
+}
+
+auto* shm = static_cast<SharedData*>(addr);
+
+// Initialize semaphores
+sem_init(&shm->mutex, 1, 1);  // binary semaphore for mutual exclusion
+sem_init(&shm->empty, 1, MAX_ITEMS);  // count of empty slots
+sem_init(&shm->full, 1, 0);           // count of full slots
+shm->count = 0;
+
+// start producer thread
+pthread_t tid;
+if (pthread_create(&tid, nullptr, produce, shm) != 0) {
+    std::cout << "Error: could not create producer thread" << std::endl;
+    munmap(addr, sizeof(SharedData));
+    close(fd);
+    return 1;
+}
+
+pthread_join(tid, nullptr);
+
+munmap(addr, sizeof(SharedData));
+close(fd);
+shm_unlink(NAME);
+
+```
+
+### Shared Memory Handling
+We first open a block of shared memory at the `NAME` "/Shared". 
+
+If this fails, we log and return early.
+
+We then try to truncate the shared memory to the size of our `SharedData` block to ensure we are only using the necessary amount of memory, and that we cannot write out of bounds.
+
+If this fails, we log and return early (safely closing the shared memory).
+
+We then allocate real memory to the location of our shared memory with the correct size, and read and write privileges.
+
+If this fails, we log and return early (safely closing the shared memory).
+
+Then, we cast the block of shared memory to our `SharedData` struct, so we can access members. 
+
+### Semaphore Initializations
+
+We setup our `mutex` semaphore, initialize it to 1, and indicate that it is shared across multiple processes
+
+We setup our `empty` semaphore, initialize it to 2, and indicate that it is shared across multiple processes
+
+We setup our `empty` semaphore, initialize it to 0, and indicate that it is shared across multiple processes
+
+We setup `count` to indicate that the first slot is empty.
+
+
+
