@@ -91,4 +91,50 @@ Both will also need semaphores for locking so they can edit the data without enc
 
 Both will also need to check and set flags indicating if they have added or removed an item, or if there is an item or an empty slot (`full`, `empty`).
 
+## Producer Thread
+
+
+```c
+void* produce(void* arg) {
+    SharedData* shm = static_cast<SharedData*>(arg);
+    int item = 0;
+
+    while (true) {
+        item++;
+        sem_wait(&shm->empty);  // wait until there is an empty slot
+        sem_wait(&shm->mutex);  // wait until we have the lock
+
+        shm->buffer[shm->count] = item;  // add an item
+        shm->count += 1;
+
+        std::cout << "[Producer] Added item: " << item
+                  << " | Count: " << shm->count << std::endl;
+
+        sem_post(&shm->mutex);  // unlock
+        sem_post(&shm->full);   // signal that we added an item
+    }
+
+    return nullptr;
+}
+
+```
+
+The above is the code for creating the producer thread
+
+The thread takes the shared memory blocking containing the common struct
+
+The thread starts by converting the memory block to the struct, so that its members my be accessed.
+
+Then, it sets the value of `item` to zero. 
+This is what will be pushed to the queue when there is an open spot. It will be incremented each time to track how many items the producer has generated.
+
+The thread will continuously increment item, then wait until the consumer indicates there is an empty slot, and gives the lock to the producer.
+
+We then use the shared count to determine what spot we should add an item to in the buffer, and place our produced item at that index.
+
+We increment count to indicate we are moving to the next available spot, or outside of the buffer.
+
+We then return the mutex lock, and signal that we have added an item and at least one slot is full
+
+
 
