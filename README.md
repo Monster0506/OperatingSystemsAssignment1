@@ -91,7 +91,7 @@ Both will also need semaphores for locking so they can edit the data without enc
 
 Both will also need to check and set flags indicating if they have added or removed an item, or if there is an item or an empty slot (`full`, `empty`).
 
-## Producer Thread
+## Producer Process
 
 ```c
 void* produce(void* arg) {
@@ -118,16 +118,16 @@ void* produce(void* arg) {
 
 ```
 
-The above is the code for creating the producer thread
+The above is the code for creating the producer process
 
-The thread takes the shared memory block containing the common struct
+The process takes the shared memory block containing the common struct
 
-The thread starts by converting the memory block to the struct, so that its members my be accessed.
+The process starts by converting the memory block to the struct, so that its members my be accessed.
 
 Then, it sets the value of `item` to zero. 
 This is what will be pushed to the stack when there is an open spot. It will be incremented each time to track how many items the producer has generated.
 
-The thread will continuously increment item, then wait until the consumer indicates there is an empty slot, and gives the lock to the producer.
+The process will continuously increment item, then wait until the consumer indicates there is an empty slot, and gives the lock to the producer.
 
 We then use the shared count to determine what spot we should add an item to in the buffer, and place our produced item at that index.
 
@@ -136,7 +136,7 @@ We increment count to indicate we are moving to the next available spot, or outs
 We then return the mutex lock, and signal that we have added an item and at least one slot is full
 
 
-## Consumer Thread
+## Consumer Process
 
 ```c
 
@@ -161,7 +161,7 @@ void* consume(void* arg) {
 }
 ```
 
-This thread also takes the shared memory location, and casts it to our `SharedData` struct
+This process also takes the shared memory location, and casts it to our `SharedData` struct
 
 It waits until the producer indicates that an item has been added (`full`) and it gets the `mutex`. 
 
@@ -169,7 +169,7 @@ It then pops the item from the stack, and decrements count to indicate that an i
 
 Finally, it releases the `mutex` and changes the empty flag to indicate that there is now an empty slot.
 
-## Setup of Producer Thread
+## Setup of Producer Process
 
 
 ```c
@@ -204,16 +204,8 @@ sem_init(&shm->empty, 1, MAX_ITEMS);  // count of empty slots
 sem_init(&shm->full, 1, 0);           // count of full slots
 shm->count = 0;
 
-// start producer thread
-pthread_t tid;
-if (pthread_create(&tid, nullptr, produce, shm) != 0) {
-    std::cout << "Error: could not create producer thread" << std::endl;
-    munmap(addr, sizeof(SharedData));
-    close(fd);
-    return 1;
-}
-
-pthread_join(tid, nullptr);
+// start producer process
+produce(shm);
 
 munmap(addr, sizeof(SharedData));
 close(fd);
@@ -246,19 +238,13 @@ We setup our `full` semaphore, initialize it to 0, and indicate that it is share
 
 We setup `count` to indicate that the first slot is empty.
 
-### Thread Initialization
+### Process Initialization
 
-We create a pid to refer to our thread by.
-
-We then attempt to create a thread with this id, that will run the previously detailed `produce` function, with access, with the previously established shared memory passed as a parameter to the function.
-
-If this fails, we log and return early (safely closing and unmapping the shared memory).
-
-We then join the thread to call the process.
+We run the `produce` function.
 
 Once we finish, we handle unmapping memory and closing the file descriptor.
 
-## Setup of Consumer Thread
+## Setup of Consumer Process
 
 ```c
 int fd = shm_open(NAME, O_CREAT | O_RDWR, 0666);
@@ -277,16 +263,8 @@ if (addr == MAP_FAILED) {
 }
 
 auto* shm = static_cast<SharedData*>(addr);
-// start consumer thread
-pthread_t tid;
-if (pthread_create(&tid, nullptr, consume, shm) != 0) {
-    std::cout << "Error: could not create consumer thread" << std::endl;
-    munmap(addr, sizeof(SharedData));
-    close(fd);
-    return 1;
-}
-
-pthread_join(tid, nullptr);
+// start consumer process
+consume(shm);
 
 munmap(addr, sizeof(SharedData));
 close(fd);
@@ -308,14 +286,8 @@ If this fails, we log and return early (safely closing the shared memory).
 
 Then, we cast the block of shared memory to our `SharedData` struct, so we can access members. 
 
-### Thread Initialization
+### Process Initialization
 
-We create a pid to refer to our thread by.
-
-We then attempt to create a thread with this id, that will run the previously detailed `consume` function, with access, with the previously established shared memory passed as a parameter to the function.
-
-If this fails, we log and return early (safely closing and unmapping the shared memory).
-
-We then join the thread to call the process.
+We run the `consume` function
 
 Once we finish, we handle unmapping memory and closing the file descriptor.

@@ -1,5 +1,4 @@
 #include <fcntl.h>
-#include <pthread.h>
 #include <semaphore.h>
 #include <sys/mman.h>
 #include <unistd.h>
@@ -45,7 +44,7 @@ int main() {
     }
 
     auto* shm = static_cast<SharedData*>(addr);
-    // start consumer thread
+    // start consumer process
     consume(shm);
 
     munmap(addr, sizeof(SharedData));

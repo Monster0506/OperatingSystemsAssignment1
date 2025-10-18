@@ -1,5 +1,4 @@
 #include <fcntl.h>
-#include <pthread.h>
 #include <semaphore.h>
 #include <sys/mman.h>
 #include <unistd.h>
@@ -61,7 +60,7 @@ int main() {
     sem_init(&shm->full, 1, 0);           // count of full slots
     shm->count = 0;
 
-    // start producer thread
+    // start producer process
     produce(shm);
 
     munmap(addr, sizeof(SharedData));

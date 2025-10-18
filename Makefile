@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -pthread -lrt
+CXXFLAGS = -Wall -lrt
 
 # Targets
 all: producer consumer
