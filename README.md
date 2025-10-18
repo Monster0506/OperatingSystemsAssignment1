@@ -173,7 +173,7 @@ Finally, it releases the `mutex` and changes the empty flag to indicate that the
 
 
 ```c
-int fd = shm_open(NAME, 66, 0666);
+int fd = shm_open(NAME, O_CREAT | O_RDWR, 0666);
 if (fd == -1) {
     std::cout << "Error: failed to open shared memory (" << NAME << ")"
                 << std::endl;
