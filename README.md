@@ -120,7 +120,7 @@ void* produce(void* arg) {
 
 The above is the code for creating the producer thread
 
-The thread takes the shared memory blocking containing the common struct
+The thread takes the shared memory block containing the common struct
 
 The thread starts by converting the memory block to the struct, so that its members my be accessed.
 
