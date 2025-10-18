@@ -301,45 +301,89 @@ Once we finish, we handle unmapping memory and closing the file descriptor.
 
 ## Changelog
 
+04751a5 Add changelog
+
 5868b9b Add image
+
 3bced5b Remove thread references, replace with processes
+
 72e75dd Make them not threads, I guess? Not sure why that requirement is there
+
 711b5c0 Fix typos
+
 a76fdde Add details on consumer thread creation
+
 781d077 Fix typos
+
 3cdeba2 Fix typo
+
 af6ce44 Fix formatting
+
 767e354 Clean up minor flaws
+
 689e96b Begin documenting thread creation for producer
+
 3684539 Update README with description of consumer thread
+
 3f10966 Update README with description of producer thread
+
 6396c0e Include DETAILED usage instructions in the README
+
 659f5e6 Begin documentation in the README for common information
+
 54c8b67 Fix consumer fd flags
+
 49f5931 Fix placement of semaphore mutex free
+
 06f30b4 Properly initialize semaphore flags
+
 53e570d Fix failing to set empty from consumer thread
+
 c3a5d2d Safely join and close consumer thread
+
 11d10f5 Create producer thread
+
 31848b9 Create consumer thread
+
 feb4333 Return mutex to consumer in producer thread
+
 03a5180 Add logs for producer thread
+
 1f7714e Add an item to the buffer in the producer thread
+
 ea6d713 Wait on locks for producer
+
 0b4b394 Set up the producer thread with shared memory and thing to generate
+
 904f230 Unlock
+
 39e729e Add logs for consumer to get item
+
 db078d5 Consumer get last item in queue
+
 d325778 Set up waiting on lock
+
 1977c14 Begin work on consumer thread
+
 c9403fd Set up all of our shared memory
+
 938accc Allocate memory to our shared memory and check for errors
+
 57402dc Whoops, we should probably handle failures nicely instead of just trying to continue
+
 f119871 Try to fit shared memory block to correct size of data
+
 b1dc990 Open a block of shared memory for both producer and consumer
+
 f6b34bd Add shared name
+
 86b5aec Add main functions for producer and consumer
+
 6fac085 Add gitignore
+
 45fa1a9 Add makefile
+
 17edf26 Setup files and create basic share state
+
 6a206fe Add README
+
