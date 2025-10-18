@@ -29,7 +29,7 @@ void* consume(void* arg) {
 }
 
 int main() {
-    int fd = shm_open(NAME, 02, 0666);
+    int fd = shm_open(NAME, O_CREAT | O_RDWR, 0666);
     if (fd == -1) {
         std::cout << "Error: failed to open shared memory (" << NAME << ")"
                   << std::endl;
