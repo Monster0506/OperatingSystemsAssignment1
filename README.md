@@ -85,7 +85,7 @@ struct SharedData {
 
 This is a common construct to both the producer and consumer. They will both need to access shared data and handle locks, so these struct members will be loaded into the shared memory block.
 
-Both will need to access a buffer of size `2`, and hold a count of how many items are currently in the queue. 
+Both will need to access a buffer of size `2`, and hold a count of how many items are currently in the stack. 
 
 Both will also need semaphores for locking so they can edit the data without encountering race conditions (`mutex`). This asserts mutual exclusion. 
 
@@ -125,7 +125,7 @@ The thread takes the shared memory blocking containing the common struct
 The thread starts by converting the memory block to the struct, so that its members my be accessed.
 
 Then, it sets the value of `item` to zero. 
-This is what will be pushed to the queue when there is an open spot. It will be incremented each time to track how many items the producer has generated.
+This is what will be pushed to the stack when there is an open spot. It will be incremented each time to track how many items the producer has generated.
 
 The thread will continuously increment item, then wait until the consumer indicates there is an empty slot, and gives the lock to the producer.
 
@@ -165,7 +165,7 @@ This thread also takes the shared memory location, and casts it to our `SharedDa
 
 It waits until the producer indicates that an item has been added (`full`) and it gets the `mutex`. 
 
-It then pops the item from the queue, and decrements count to indicate that an item has been removed.
+It then pops the item from the stack, and decrements count to indicate that an item has been removed.
 
 Finally, it releases the `mutex` and changes the empty flag to indicate that there is now an empty slot.
 
@@ -242,9 +242,19 @@ We setup our `mutex` semaphore, initialize it to 1, and indicate that it is shar
 
 We setup our `empty` semaphore, initialize it to 2, and indicate that it is shared across multiple processes
 
-We setup our `empty` semaphore, initialize it to 0, and indicate that it is shared across multiple processes
+We setup our `full` semaphore, initialize it to 0, and indicate that it is shared across multiple processes
 
 We setup `count` to indicate that the first slot is empty.
 
+### Thread Initialization
 
+We create a pid to refer to our thread by.
+
+We then attempt to create a thread with this id, that will run the previously detailed `produce` function, with access, with the previously established shared memory passed as a parameter to the function.
+
+If this fails, we log and return early (safely closing and unmapping the shared memory).
+
+We then join the thread to call the process.
+
+Once we finish, we handle unmapping memory and closing the file descriptor.
 
