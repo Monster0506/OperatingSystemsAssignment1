@@ -62,15 +62,7 @@ int main() {
     shm->count = 0;
 
     // start producer thread
-    pthread_t tid;
-    if (pthread_create(&tid, nullptr, produce, shm) != 0) {
-        std::cout << "Error: could not create producer thread" << std::endl;
-        munmap(addr, sizeof(SharedData));
-        close(fd);
-        return 1;
-    }
-
-    pthread_join(tid, nullptr);
+    produce(shm);
 
     munmap(addr, sizeof(SharedData));
     close(fd);

@@ -46,15 +46,7 @@ int main() {
 
     auto* shm = static_cast<SharedData*>(addr);
     // start consumer thread
-    pthread_t tid;
-    if (pthread_create(&tid, nullptr, consume, shm) != 0) {
-        std::cout << "Error: could not create consumer thread" << std::endl;
-        munmap(addr, sizeof(SharedData));
-        close(fd);
-        return 1;
-    }
-
-    pthread_join(tid, nullptr);
+    consume(shm);
 
     munmap(addr, sizeof(SharedData));
     close(fd);
