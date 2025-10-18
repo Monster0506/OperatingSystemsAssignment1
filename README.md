@@ -258,3 +258,64 @@ We then join the thread to call the process.
 
 Once we finish, we handle unmapping memory and closing the file descriptor.
 
+## Setup of Consumer Thread
+
+```c
+int fd = shm_open(NAME, O_CREAT | O_RDWR, 0666);
+if (fd == -1) {
+    std::cout << "Error: failed to open shared memory (" << NAME << ")"
+                << std::endl;
+    return 1;
+}
+
+void* addr = mmap(nullptr, sizeof(SharedData), 0x3, 0x01, fd, 0);
+
+if (addr == MAP_FAILED) {
+    std::cout << "Error: mmap failed" << std::endl;
+    close(fd);
+    return 1;
+}
+
+auto* shm = static_cast<SharedData*>(addr);
+// start consumer thread
+pthread_t tid;
+if (pthread_create(&tid, nullptr, consume, shm) != 0) {
+    std::cout << "Error: could not create consumer thread" << std::endl;
+    munmap(addr, sizeof(SharedData));
+    close(fd);
+    return 1;
+}
+
+pthread_join(tid, nullptr);
+
+munmap(addr, sizeof(SharedData));
+close(fd);
+return 0;
+```
+
+### Shared Memory Handling
+We first open a block of shared memory at the `NAME` "/Shared". 
+
+If this fails, we log and return early.
+
+We then try to truncate the shared memory to the size of our `SharedData` block to ensure we are only using the necessary amount of memory, and that we cannot write out of bounds.
+
+If this fails, we log and return early (safely closing the shared memory).
+
+We then allocate real memory to the location of our shared memory with the correct size, and read and write privileges.
+
+If this fails, we log and return early (safely closing the shared memory).
+
+Then, we cast the block of shared memory to our `SharedData` struct, so we can access members. 
+
+### Thread Initialization
+
+We create a pid to refer to our thread by.
+
+We then attempt to create a thread with this id, that will run the previously detailed `consume` function, with access, with the previously established shared memory passed as a parameter to the function.
+
+If this fails, we log and return early (safely closing and unmapping the shared memory).
+
+We then join the thread to call the process.
+
+Once we finish, we handle unmapping memory and closing the file descriptor.
