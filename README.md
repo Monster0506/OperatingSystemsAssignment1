@@ -291,3 +291,8 @@ Then, we cast the block of shared memory to our `SharedData` struct, so we can a
 We run the `consume` function
 
 Once we finish, we handle unmapping memory and closing the file descriptor.
+
+
+## Example Image
+
+![example.png](example.png)
