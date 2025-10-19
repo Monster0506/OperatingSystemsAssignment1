@@ -13,170 +13,170 @@ If you attempt to run on these platforms, you will encounter missing header erro
 
 ##### 0.1.1. Recommended Environments
 - Ubuntu 22.04 (LTS),  Debian 12+, Fedora 39+ or Arch Linux (latest)
-- A kernel version greater than 5.10 is advised for stable semaphore handling
-
+    - A kernel version greater than 5.10 is advised for stable semaphore handling
 
 #### 0.2 Shared Memory
 
 ##### 0.2.1. `/dev/shm`
 `/dev/shm` must be mounted as a `tmpfs` filesystem (this is automatic in most distros)
-You can verify `/dev/shm` with:
-```sh
-mount | grep shm
-```
+    You can verify `/dev/shm` with:
+    ```sh
+    mount | grep shm
+    ```
 
-You should see something like:
-```sh
+    You should see something like:
+    ```sh
 tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)
-```
+    ```
 
 ##### 0.2.2. Creating a missing `tmpfs`
-If `/dev/shm` does not exist, create and mount it manually:
-```sh
-sudo mkdir -p /dev/shm
-sudo mount -t tmpfs -o rw,nosuid,nodev tmpfs /dev/shm
-```
+    If `/dev/shm` does not exist, create and mount it manually:
+    ```sh
+    sudo mkdir -p /dev/shm
+    sudo mount -t tmpfs -o rw,nosuid,nodev tmpfs /dev/shm
+    ```
 
 #### 0.3. Compiler
-Both `gcc` and `clang` are supported.
+    Both `gcc` and `clang` are supported.
 
 #### 0.4. Build tools
 ##### 0.4.1. GNU Make
-Version 4.3 or later.
-Most distributions include this by default.
+    Version 4.3 or later.
+    Most distributions include this by default.
 
-Verify your installation by using 
-```sh
-make --version
-```
+    Verify your installation by using 
+    ```sh
+    make --version
+    ```
 
 ##### 0.4.2. C++ STL
-- `libstdc+`
-- `libc++`
+    - `libstdc+`
+    - `libc++`
 
 
 #### 0.5. Notes on Permissions and Filesystem Notes
 
-The program writes to:
-- `/dev/shm/Shared`
-- `./producer`, `./consumer` binaries in the project directory
-- Optional log files (`log.txt`) if output redirection is used.
+    The program writes to:
+    - `/dev/shm/Shared`
+    - `./producer`, `./consumer` binaries in the project directory
+    - Optional log files (`log.txt`) if output redirection is used.
 
 
-Ensure that:
+    Ensure that:
 
-- The user has write permissions to `/dev/shm`
-- No previous `/dev/shm/Shared` object exists, or else you may see:
+    - The user has write permissions to `/dev/shm`
+    - No previous `/dev/shm/Shared` object exists, or else you may see:
 
-```text
-Error: failed to open shared memory (/Shared)
-```
+    ```text
+    Error: failed to open shared memory (/Shared)
+    ```
 
-- To clean up before running: 
-```sh
-sudo rm -f /dev/shm/Shared
-```
+    - To clean up before running: 
+    ```sh
+    sudo rm -f /dev/shm/Shared
+    ```
 
 
 ### 1. Clone the repository
 
-Clone from GitHub into any working directory (for example, a `$HOME` folder).
+    Clone from GitHub into any working directory (for example, a `$HOME` folder).
 
-```sh
-git clone https://github.com/monster0506/OperatingSystemsAssignment1
-```
+    ```sh
+    git clone https://github.com/monster0506/OperatingSystemsAssignment1
+    ```
 
-Then enter the directory.
+    Then enter the directory.
 
-```sh
-cd OperatingSystemsAssignment1
-```
+    ```sh
+    cd OperatingSystemsAssignment1
+    ```
 
-Run ls to confirm that all files have been correctly cloned. Ensure that the output matches the below
-```sh
->>> ls
-.gitignore
-consumer.cpp
-example.png
-Makefile
-producer.cpp
-README.md
-shared.hpp
-```
+    Run ls to confirm that all files have been correctly cloned. Ensure that the output matches the below
+    ```sh
+    >>> ls
+    .gitignore
+    consumer.cpp
+    example.png
+    example2.png
+    Makefile
+    producer.cpp
+    README.md
+    shared.hpp
+    ```
 
 
 ### 2. Compile the Producer and Consumer
 
-```sh
-make producer
-make consumer
+    ```sh
+    make producer
+    make consumer
 # --or--
-make
-```
+    make
+    ```
 
 ### 3. Run the Producer and Consumer
 
-```sh
-make run
+    ```sh
+    make run
 # --or--
-./producer & ./consumer &
-```
+    ./producer & ./consumer &
+    ```
 
 #### 3a. Capture Output to a File
 
-```sh
-( ./producer & ./consumer ) > log.txt 2>&1 &
-```
+    ```sh
+    ( ./producer & ./consumer ) > log.txt 2>&1 &
+    ```
 
 #### 3b. Read From the Logfile
 
-```sh
-tail -f log.txt
-```
+    ```sh
+    tail -f log.txt
+    ```
 
 
 ### 4. Stop the Running Processes
 
-In a separate terminal window or `tmux` pane
+    In a separate terminal window or `tmux` pane
 
-```sh
-pkill producer
-pkill consumer
-```
+    ```sh
+    pkill producer
+    pkill consumer
+    ```
 ### 5. Clean Up the Binaries
 
-```sh
-make clean
+    ```sh
+    make clean
 # --or--
-rm -f ./producer ./consumer
-```
+    rm -f ./producer ./consumer
+    ```
 
 #### 5a. Clean Up Logfiles
 
-If you logged to a file, make sure to remove that file
+    If you logged to a file, make sure to remove that file
 
-```sh
-rm -f log.txt
-```
+    ```sh
+    rm -f log.txt
+    ```
 
 
 ## Shared Data
 
-shared.hpp
-```c
+    shared.hpp
+    ```c
 #pragma once
 #include <semaphore.h>
 
-const int MAX_ITEMS = 2;
-const char* NAME = "/Shared";
+    const int MAX_ITEMS = 2;
+    const char* NAME = "/Shared";
 
-struct SharedData {
-    int buffer[MAX_ITEMS];
-    int count;
-    sem_t mutex;
-    sem_t empty;
-    sem_t full;
-};
+    struct SharedData {
+        int buffer[MAX_ITEMS];
+        int count;
+        sem_t mutex;
+        sem_t empty;
+        sem_t full;
+    };
 ```
 
 
@@ -204,7 +204,7 @@ void* produce(void* arg) {
         shm->count += 1;
 
         std::cout << "[Producer] Added item: " << item
-                  << " | Count: " << shm->count << std::endl;
+            << " | Count: " << shm->count << std::endl;
 
         sem_post(&shm->mutex);
         sem_post(&shm->full);
@@ -249,7 +249,7 @@ void* consume(void* arg) {
         shm->count -= 1;
 
         std::cout << "[Consumer] Consumed item: " << item
-                  << " | Count: " << shm->count << std::endl;
+            << " | Count: " << shm->count << std::endl;
         sem_post(&shm->mutex);
         sem_post(&shm->empty);
     }
@@ -273,20 +273,20 @@ Finally, it releases the `mutex` and changes the empty flag to indicate that the
 int fd = shm_open(NAME, O_CREAT | O_RDWR, 0666);
 if (fd == -1) {
     std::cout << "Error: failed to open shared memory (" << NAME << ")"
-                << std::endl;
+        << std::endl;
     return 1;
 }
 
 if (ftruncate(fd, sizeof(SharedData)) == -1) {
     std::cout << "Error: failed to fit shared memory block to size of "
-                    "shared data ("
-                << NAME << ")" << std::endl;
+        "shared data ("
+        << NAME << ")" << std::endl;
     close(fd);
     return 1;
 }
 
 void* addr = mmap(nullptr, sizeof(SharedData), PROT_READ | PROT_WRITE,
-                    MAP_SHARED, fd, 0);
+        MAP_SHARED, fd, 0);
 if (addr == MAP_FAILED) {
     std::cout << "Error: mmap failed" << std::endl;
     close(fd);
@@ -347,7 +347,7 @@ Once we finish, we handle unmapping memory and closing the file descriptor.
 int fd = shm_open(NAME, O_CREAT | O_RDWR, 0666);
 if (fd == -1) {
     std::cout << "Error: failed to open shared memory (" << NAME << ")"
-                << std::endl;
+        << std::endl;
     return 1;
 }
 
@@ -393,10 +393,18 @@ Once we finish, we handle unmapping memory and closing the file descriptor.
 ## Example Image
 
 ![example.png](example.png)
-
-
+![example2.png](example2.png)
 
 ## Changelog
+
+
+320202e More documentation on cloning repository
+
+ad34376 More notes on program requirements
+
+bf46775 Add notes on Operating System Requirements
+
+f9d22ac Fix changelog formatting
 
 04751a5 Add changelog
 
@@ -483,4 +491,3 @@ f6b34bd Add shared name
 17edf26 Setup files and create basic share state
 
 6a206fe Add README
-
