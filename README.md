@@ -398,100 +398,100 @@ Once we finish, we handle unmapping memory and closing the file descriptor.
 
 ## Changelog
 
-    `2849a7e` `2025-10-18 22:28` Update picture formatting
+`2849a7e` `2025-10-18 22:28` Update picture formatting
 
-    `5d3d0a1` `2025-10-18 22:28` Update with additional picture
+`5d3d0a1` `2025-10-18 22:28` Update with additional picture
 
-    `320202e` `2025-10-18 22:22` More documentation on cloning repository
+`320202e` `2025-10-18 22:22` More documentation on cloning repository
 
-    `ad34376` `2025-10-18 22:19` More notes on program requirements
+`ad34376` `2025-10-18 22:19` More notes on program requirements
 
-    `bf46775` `2025-10-18 22:09` Add notes on Operating System Requirements
+`bf46775` `2025-10-18 22:09` Add notes on Operating System Requirements
 
-    `f9d22ac` `2025-10-17 21:42` Fix changelog formatting
+`f9d22ac` `2025-10-17 21:42` Fix changelog formatting
 
-    `04751a5` `2025-10-17 21:41` Add changelog
+`04751a5` `2025-10-17 21:41` Add changelog
 
-    `5868b9b` `2025-10-17 21:34` Add image
+`5868b9b` `2025-10-17 21:34` Add image
 
-    `3bced5b` `2025-10-17 21:30` Remove thread references, replace with processes
+`3bced5b` `2025-10-17 21:30` Remove thread references, replace with processes
 
-    `72e75dd` `2025-10-17 21:24` Make them not threads, I guess? Not sure why that requirement is there
+`72e75dd` `2025-10-17 21:24` Make them not threads, I guess? Not sure why that requirement is there
 
-    `711b5c0` `2025-10-17 21:13` Fix typos
+`711b5c0` `2025-10-17 21:13` Fix typos
 
-    `a76fdde` `2025-10-17 21:13` Add details on consumer thread creation
+`a76fdde` `2025-10-17 21:13` Add details on consumer thread creation
 
-    `781d077` `2025-10-17 20:53` Fix typos
+`781d077` `2025-10-17 20:53` Fix typos
 
-    `3cdeba2` `2025-10-17 20:41` Fix typo
+`3cdeba2` `2025-10-17 20:41` Fix typo
 
-    `af6ce44` `2025-10-17 20:37` Fix formatting
+`af6ce44` `2025-10-17 20:37` Fix formatting
 
-    `767e354` `2025-10-17 20:37` Clean up minor flaws
+`767e354` `2025-10-17 20:37` Clean up minor flaws
 
-    `689e96b` `2025-10-16 13:31` Begin documenting thread creation for producer
+`689e96b` `2025-10-16 13:31` Begin documenting thread creation for producer
 
-    `3684539` `2025-10-16 13:21` Update README with description of consumer thread
+`3684539` `2025-10-16 13:21` Update README with description of consumer thread
 
-    `3f10966` `2025-10-16 13:17` Update README with description of producer thread
+`3f10966` `2025-10-16 13:17` Update README with description of producer thread
 
-    `6396c0e` `2025-10-16 13:10` Include DETAILED usage instructions in the README
+`6396c0e` `2025-10-16 13:10` Include DETAILED usage instructions in the README
 
-    `659f5e6` `2025-10-16 12:50` Begin documentation in the README for common information
+`659f5e6` `2025-10-16 12:50` Begin documentation in the README for common information
 
-    `54c8b67` `2025-10-14 14:08` Fix consumer fd flags
+`54c8b67` `2025-10-14 14:08` Fix consumer fd flags
 
-    `49f5931` `2025-10-14 14:06` Fix placement of semaphore mutex free
+`49f5931` `2025-10-14 14:06` Fix placement of semaphore mutex free
 
-    `06f30b4` `2025-10-14 14:05` Properly initialize semaphore flags
+`06f30b4` `2025-10-14 14:05` Properly initialize semaphore flags
 
-    `53e570d` `2025-10-14 13:58` Fix failing to set empty from consumer thread
+`53e570d` `2025-10-14 13:58` Fix failing to set empty from consumer thread
 
-    `c3a5d2d` `2025-10-14 13:56` Safely join and close consumer thread
+`c3a5d2d` `2025-10-14 13:56` Safely join and close consumer thread
 
-    `11d10f5` `2025-10-14 13:55` Create producer thread
+`11d10f5` `2025-10-14 13:55` Create producer thread
 
-    `31848b9` `2025-10-14 13:54` Create consumer thread
+`31848b9` `2025-10-14 13:54` Create consumer thread
 
-    `feb4333` `2025-10-14 13:51` Return mutex to consumer in producer thread
+`feb4333` `2025-10-14 13:51` Return mutex to consumer in producer thread
 
-    `03a5180` `2025-10-14 13:50` Add logs for producer thread
+`03a5180` `2025-10-14 13:50` Add logs for producer thread
 
-    `1f7714e` `2025-10-14 13:49` Add an item to the buffer in the producer thread
+`1f7714e` `2025-10-14 13:49` Add an item to the buffer in the producer thread
 
-    `ea6d713` `2025-10-14 13:42` Wait on locks for producer
+`ea6d713` `2025-10-14 13:42` Wait on locks for producer
 
-    `0b4b394` `2025-10-14 13:40` Set up the producer thread with shared memory and thing to generate
+`0b4b394` `2025-10-14 13:40` Set up the producer thread with shared memory and thing to generate
 
-    `904f230` `2025-10-14 13:39` Unlock
+`904f230` `2025-10-14 13:39` Unlock
 
-    `39e729e` `2025-10-14 13:39` Add logs for consumer to get item
+`39e729e` `2025-10-14 13:39` Add logs for consumer to get item
 
-    `db078d5` `2025-10-14 13:38` Consumer get last item in queue
+`db078d5` `2025-10-14 13:38` Consumer get last item in queue
 
-    `d325778` `2025-10-14 13:37` Set up waiting on lock
+`d325778` `2025-10-14 13:37` Set up waiting on lock
 
-    `1977c14` `2025-10-14 13:36` Begin work on consumer thread
+`1977c14` `2025-10-14 13:36` Begin work on consumer thread
 
-    `c9403fd` `2025-10-14 13:35` Set up all of our shared memory
+`c9403fd` `2025-10-14 13:35` Set up all of our shared memory
 
-    `938accc` `2025-10-14 13:33` Allocate memory to our shared memory and check for errors
+`938accc` `2025-10-14 13:33` Allocate memory to our shared memory and check for errors
 
-    `57402dc` `2025-10-14 13:28` Whoops, we should probably handle failures nicely instead of just trying to continue
+`57402dc` `2025-10-14 13:28` Whoops, we should probably handle failures nicely instead of just trying to continue
 
-    `f119871` `2025-10-14 13:27` Try to fit shared memory block to correct size of data
+`f119871` `2025-10-14 13:27` Try to fit shared memory block to correct size of data
 
-    `b1dc990` `2025-10-14 13:25` Open a block of shared memory for both producer and consumer
+`b1dc990` `2025-10-14 13:25` Open a block of shared memory for both producer and consumer
 
-    `f6b34bd` `2025-10-14 13:23` Add shared name
+`f6b34bd` `2025-10-14 13:23` Add shared name
 
-    `86b5aec` `2025-10-14 12:42` Add main functions for producer and consumer
+`86b5aec` `2025-10-14 12:42` Add main functions for producer and consumer
 
-    `6fac085` `2025-10-14 12:41` Add gitignore
+`6fac085` `2025-10-14 12:41` Add gitignore
 
-    `45fa1a9` `2025-10-14 12:41` Add makefile
+`45fa1a9` `2025-10-14 12:41` Add makefile
 
-    `17edf26` `2025-10-14 12:39` Setup files and create basic share state
+`17edf26` `2025-10-14 12:39` Setup files and create basic share state
 
-    `6a206fe` `2025-10-14 12:33` Add README
+`6a206fe` `2025-10-14 12:33` Add README
