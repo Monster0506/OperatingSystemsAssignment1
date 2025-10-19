@@ -435,6 +435,12 @@ Once we finish, we handle unmapping memory and closing the file descriptor.
 
 ## Changelog
 
+`6bf22d9` `2025-10-18 22:54` Add table of contents
+
+`70e10e0` `2025-10-18 22:52` Re-format changelog
+
+`a90340b` `2025-10-18 22:49` Update changelog
+
 `2849a7e` `2025-10-18 22:28` Update picture formatting
 
 `5d3d0a1` `2025-10-18 22:28` Update with additional picture
@@ -532,3 +538,4 @@ Once we finish, we handle unmapping memory and closing the file descriptor.
 `17edf26` `2025-10-14 12:39` Setup files and create basic share state
 
 `6a206fe` `2025-10-14 12:33` Add README
+
