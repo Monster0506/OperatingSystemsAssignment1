@@ -79,10 +79,31 @@ sudo rm -f /dev/shm/Shared
 
 
 ### 1. Clone the repository
+
+Clone from GitHub into any working directory (for example, a `$HOME` folder).
+
 ```sh
 git clone https://github.com/monster0506/OperatingSystemsAssignment1
+```
+
+Then enter the directory.
+
+```sh
 cd OperatingSystemsAssignment1
 ```
+
+Run ls to confirm that all files have been correctly cloned. Ensure that the output matches the below
+```sh
+>>> ls
+.gitignore
+consumer.cpp
+example.png
+Makefile
+producer.cpp
+README.md
+shared.hpp
+```
+
 
 ### 2. Compile the Producer and Consumer
 
