@@ -398,97 +398,100 @@ Once we finish, we handle unmapping memory and closing the file descriptor.
 
 ## Changelog
 
+    `2849a7e` `2025-10-18 22:28` Update picture formatting
 
-320202e More documentation on cloning repository
+    `5d3d0a1` `2025-10-18 22:28` Update with additional picture
 
-ad34376 More notes on program requirements
+    `320202e` `2025-10-18 22:22` More documentation on cloning repository
 
-bf46775 Add notes on Operating System Requirements
+    `ad34376` `2025-10-18 22:19` More notes on program requirements
 
-f9d22ac Fix changelog formatting
+    `bf46775` `2025-10-18 22:09` Add notes on Operating System Requirements
 
-04751a5 Add changelog
+    `f9d22ac` `2025-10-17 21:42` Fix changelog formatting
 
-5868b9b Add image
+    `04751a5` `2025-10-17 21:41` Add changelog
 
-3bced5b Remove thread references, replace with processes
+    `5868b9b` `2025-10-17 21:34` Add image
 
-72e75dd Make them not threads, I guess? Not sure why that requirement is there
+    `3bced5b` `2025-10-17 21:30` Remove thread references, replace with processes
 
-711b5c0 Fix typos
+    `72e75dd` `2025-10-17 21:24` Make them not threads, I guess? Not sure why that requirement is there
 
-a76fdde Add details on consumer thread creation
+    `711b5c0` `2025-10-17 21:13` Fix typos
 
-781d077 Fix typos
+    `a76fdde` `2025-10-17 21:13` Add details on consumer thread creation
 
-3cdeba2 Fix typo
+    `781d077` `2025-10-17 20:53` Fix typos
 
-af6ce44 Fix formatting
+    `3cdeba2` `2025-10-17 20:41` Fix typo
 
-767e354 Clean up minor flaws
+    `af6ce44` `2025-10-17 20:37` Fix formatting
 
-689e96b Begin documenting thread creation for producer
+    `767e354` `2025-10-17 20:37` Clean up minor flaws
 
-3684539 Update README with description of consumer thread
+    `689e96b` `2025-10-16 13:31` Begin documenting thread creation for producer
 
-3f10966 Update README with description of producer thread
+    `3684539` `2025-10-16 13:21` Update README with description of consumer thread
 
-6396c0e Include DETAILED usage instructions in the README
+    `3f10966` `2025-10-16 13:17` Update README with description of producer thread
 
-659f5e6 Begin documentation in the README for common information
+    `6396c0e` `2025-10-16 13:10` Include DETAILED usage instructions in the README
 
-54c8b67 Fix consumer fd flags
+    `659f5e6` `2025-10-16 12:50` Begin documentation in the README for common information
 
-49f5931 Fix placement of semaphore mutex free
+    `54c8b67` `2025-10-14 14:08` Fix consumer fd flags
 
-06f30b4 Properly initialize semaphore flags
+    `49f5931` `2025-10-14 14:06` Fix placement of semaphore mutex free
 
-53e570d Fix failing to set empty from consumer thread
+    `06f30b4` `2025-10-14 14:05` Properly initialize semaphore flags
 
-c3a5d2d Safely join and close consumer thread
+    `53e570d` `2025-10-14 13:58` Fix failing to set empty from consumer thread
 
-11d10f5 Create producer thread
+    `c3a5d2d` `2025-10-14 13:56` Safely join and close consumer thread
 
-31848b9 Create consumer thread
+    `11d10f5` `2025-10-14 13:55` Create producer thread
 
-feb4333 Return mutex to consumer in producer thread
+    `31848b9` `2025-10-14 13:54` Create consumer thread
 
-03a5180 Add logs for producer thread
+    `feb4333` `2025-10-14 13:51` Return mutex to consumer in producer thread
 
-1f7714e Add an item to the buffer in the producer thread
+    `03a5180` `2025-10-14 13:50` Add logs for producer thread
 
-ea6d713 Wait on locks for producer
+    `1f7714e` `2025-10-14 13:49` Add an item to the buffer in the producer thread
 
-0b4b394 Set up the producer thread with shared memory and thing to generate
+    `ea6d713` `2025-10-14 13:42` Wait on locks for producer
 
-904f230 Unlock
+    `0b4b394` `2025-10-14 13:40` Set up the producer thread with shared memory and thing to generate
 
-39e729e Add logs for consumer to get item
+    `904f230` `2025-10-14 13:39` Unlock
 
-db078d5 Consumer get last item in queue
+    `39e729e` `2025-10-14 13:39` Add logs for consumer to get item
 
-d325778 Set up waiting on lock
+    `db078d5` `2025-10-14 13:38` Consumer get last item in queue
 
-1977c14 Begin work on consumer thread
+    `d325778` `2025-10-14 13:37` Set up waiting on lock
 
-c9403fd Set up all of our shared memory
+    `1977c14` `2025-10-14 13:36` Begin work on consumer thread
 
-938accc Allocate memory to our shared memory and check for errors
+    `c9403fd` `2025-10-14 13:35` Set up all of our shared memory
 
-57402dc Whoops, we should probably handle failures nicely instead of just trying to continue
+    `938accc` `2025-10-14 13:33` Allocate memory to our shared memory and check for errors
 
-f119871 Try to fit shared memory block to correct size of data
+    `57402dc` `2025-10-14 13:28` Whoops, we should probably handle failures nicely instead of just trying to continue
 
-b1dc990 Open a block of shared memory for both producer and consumer
+    `f119871` `2025-10-14 13:27` Try to fit shared memory block to correct size of data
 
-f6b34bd Add shared name
+    `b1dc990` `2025-10-14 13:25` Open a block of shared memory for both producer and consumer
 
-86b5aec Add main functions for producer and consumer
+    `f6b34bd` `2025-10-14 13:23` Add shared name
 
-6fac085 Add gitignore
+    `86b5aec` `2025-10-14 12:42` Add main functions for producer and consumer
 
-45fa1a9 Add makefile
+    `6fac085` `2025-10-14 12:41` Add gitignore
 
-17edf26 Setup files and create basic share state
+    `45fa1a9` `2025-10-14 12:41` Add makefile
 
-6a206fe Add README
+    `17edf26` `2025-10-14 12:39` Setup files and create basic share state
+
+    `6a206fe` `2025-10-14 12:33` Add README
