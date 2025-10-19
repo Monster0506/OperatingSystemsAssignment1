@@ -1,5 +1,42 @@
 # Operating Systems Assignment 1
 
+# Table of Contents
+
+- [Operating Systems Assignment 1](#operating-systems-assignment-1)
+  - [Table of Contents](#table-of-contents)
+  - [Installation and Running Instructions](#installation-and-running-instructions)
+    - [0. Prerequisites](#0-prerequisites)
+      - [0.1. Operating System](#01-operating-system)
+        - [0.1.1. Recommended Environments](#011-recommended-environments)
+      - [0.2. Shared Memory](#02-shared-memory)
+        - [0.2.1. /dev/shm](#021-devshm)
+        - [0.2.2. Creating a missing tmpfs](#022-creating-a-missing-tmpfs)
+      - [0.3. Compiler](#03-compiler)
+      - [0.4. Build Tools](#04-build-tools)
+        - [0.4.1. GNU Make](#041-gnu-make)
+        - [0.4.2. C++ STL](#042-c-stl)
+      - [0.5. Notes on Permissions and Filesystem Notes](#05-notes-on-permissions-and-filesystem-notes)
+    - [1. Clone the Repository](#1-clone-the-repository)
+    - [2. Compile the Producer and Consumer](#2-compile-the-producer-and-consumer)
+    - [3. Run the Producer and Consumer](#3-run-the-producer-and-consumer)
+      - [3a. Capture Output to a File](#3a-capture-output-to-a-file)
+      - [3b. Read From the Logfile](#3b-read-from-the-logfile)
+    - [4. Stop the Running Processes](#4-stop-the-running-processes)
+    - [5. Clean Up the Binaries](#5-clean-up-the-binaries)
+      - [5a. Clean Up Logfiles](#5a-clean-up-logfiles)
+  - [Shared Data](#shared-data)
+  - [Producer Process](#producer-process)
+  - [Consumer Process](#consumer-process)
+  - [Setup of Producer Process](#setup-of-producer-process)
+    - [Shared Memory Handling (Producer)](#shared-memory-handling)
+    - [Semaphore Initializations](#semaphore-initializations)
+    - [Process Initialization (Producer)](#process-initialization)
+  - [Setup of Consumer Process](#setup-of-consumer-process)
+    - [Shared Memory Handling (Consumer)](#shared-memory-handling-1)
+    - [Process Initialization (Consumer)](#process-initialization-1)
+  - [Example Images](#example-image)
+  - [Changelog](#changelog)
+
 ## Installation and Running Instructions
 
 ### 0. Prerequisites
