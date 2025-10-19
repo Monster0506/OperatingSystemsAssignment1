@@ -16,9 +16,9 @@ If you attempt to run on these platforms, you will encounter missing header erro
 - A kernel version greater than 5.10 is advised for stable semaphore handling
 
 
-### 0..2 Shared Memory
+#### 0.2 Shared Memory
 
-#### 0.2.1. `/dev/shm`
+##### 0.2.1. `/dev/shm`
 `/dev/shm` must be mounted as a `tmpfs` filesystem (this is automatic in most distros)
 You can verify `/dev/shm` with:
 ```sh
@@ -30,11 +30,51 @@ You should see something like:
 tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)
 ```
 
-### 0.2.2. Creating a missing `tmpfs`
+##### 0.2.2. Creating a missing `tmpfs`
 If `/dev/shm` does not exist, create and mount it manually:
 ```sh
 sudo mkdir -p /dev/shm
 sudo mount -t tmpfs -o rw,nosuid,nodev tmpfs /dev/shm
+```
+
+#### 0.3. Compiler
+Both `gcc` and `clang` are supported.
+
+#### 0.4. Build tools
+##### 0.4.1. GNU Make
+Version 4.3 or later.
+Most distributions include this by default.
+
+Verify your installation by using 
+```sh
+make --version
+```
+
+##### 0.4.2. C++ STL
+- `libstdc+`
+- `libc++`
+
+
+#### 0.5. Notes on Permissions and Filesystem Notes
+
+The program writes to:
+- `/dev/shm/Shared`
+- `./producer`, `./consumer` binaries in the project directory
+- Optional log files (`log.txt`) if output redirection is used.
+
+
+Ensure that:
+
+- The user has write permissions to `/dev/shm`
+- No previous `/dev/shm/Shared` object exists, or else you may see:
+
+```text
+Error: failed to open shared memory (/Shared)
+```
+
+- To clean up before running: 
+```sh
+sudo rm -f /dev/shm/Shared
 ```
 
 
