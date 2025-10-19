@@ -2,6 +2,42 @@
 
 ## Installation and Running Instructions
 
+### 0. Prerequisites
+
+#### 0.1. Operating System
+This program relies on `shm_open`, `mmap`, `ftruncate`, `sem_init`, `sem_wait`, `sem_post` and `sem_destroy`.
+
+These are part of the POSIX Standard, and are therefore supported on most Linux distributions, but are not fully supported on macOS or Windows. 
+
+If you attempt to run on these platforms, you will encounter missing header errors, or unresolved symbols at link time.
+
+##### 0.1.1. Recommended Environments
+- Ubuntu 22.04 (LTS),  Debian 12+, Fedora 39+ or Arch Linux (latest)
+- A kernel version greater than 5.10 is advised for stable semaphore handling
+
+
+### 0..2 Shared Memory
+
+#### 0.2.1. `/dev/shm`
+`/dev/shm` must be mounted as a `tmpfs` filesystem (this is automatic in most distros)
+You can verify `/dev/shm` with:
+```sh
+mount | grep shm
+```
+
+You should see something like:
+```sh
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)
+```
+
+### 0.2.2. Creating a missing `tmpfs`
+If `/dev/shm` does not exist, create and mount it manually:
+```sh
+sudo mkdir -p /dev/shm
+sudo mount -t tmpfs -o rw,nosuid,nodev tmpfs /dev/shm
+```
+
+
 ### 1. Clone the repository
 ```sh
 git clone https://github.com/monster0506/OperatingSystemsAssignment1
