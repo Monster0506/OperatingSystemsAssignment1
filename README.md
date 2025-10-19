@@ -393,6 +393,7 @@ Once we finish, we handle unmapping memory and closing the file descriptor.
 ## Example Image
 
 ![example.png](example.png)
+
 ![example2.png](example2.png)
 
 ## Changelog
