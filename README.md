@@ -33,49 +33,92 @@
 * [9. Example Images](#9-example-images)
 
 
+
+
 ## Changelog
 
 `6bf22d9` `2025-10-18 22:54` Add table of contents
+
 `70e10e0` `2025-10-18 22:52` Re-format changelog
+
 `a90340b` `2025-10-18 22:49` Update changelog
+
 `2849a7e` `2025-10-18 22:28` Update picture formatting
+
 `5d3d0a1` `2025-10-18 22:28` Update with additional picture
+
 `320202e` `2025-10-18 22:22` More documentation on cloning repository
+
 `ad34376` `2025-10-18 22:19` More notes on program requirements
+
 `bf46775` `2025-10-18 22:09` Add notes on Operating System Requirements
+
 `f9d22ac` `2025-10-17 21:42` Fix changelog formatting
+
 `04751a5` `2025-10-17 21:41` Add changelog
+
 `5868b9b` `2025-10-17 21:34` Add image
+
 `3bced5b` `2025-10-17 21:30` Remove thread references, replace with processes
+
 `72e75dd` `2025-10-17 21:24` Make them not threads, I guess? Not sure why that requirement is there
+
 `711b5c0` `2025-10-17 21:13` Fix typos
+
 `a76fdde` `2025-10-17 21:13` Add details on consumer thread creation
+
 `781d077` `2025-10-17 20:53` Fix typos
+
 `3cdeba2` `2025-10-17 20:41` Fix typo
+
 `af6ce44` `2025-10-17 20:37` Fix formatting
+
 `767e354` `2025-10-17 20:37` Clean up minor flaws
+
 `689e96b` `2025-10-16 13:31` Begin documenting thread creation for producer
+
 `3684539` `2025-10-16 13:21` Update README with description of consumer thread
+
 `3f10966` `2025-10-16 13:17` Update README with description of producer thread
+
 `6396c0e` `2025-10-16 13:10` Include DETAILED usage instructions in the README
+
 `659f5e6` `2025-10-16 12:50` Begin documentation in the README for common information
+
 `54c8b67` `2025-10-14 14:08` Fix consumer fd flags
+
 `49f5931` `2025-10-14 14:06` Fix placement of semaphore mutex free
+
 `06f30b4` `2025-10-14 14:05` Properly initialize semaphore flags
+
 `53e570d` `2025-10-14 13:58` Fix failing to set empty from consumer thread
+
 `c3a5d2d` `2025-10-14 13:56` Safely join and close consumer thread
+
 `11d10f5` `2025-10-14 13:55` Create producer thread
+
 `31848b9` `2025-10-14 13:54` Create consumer thread
+
 `feb4333` `2025-10-14 13:51` Return mutex to consumer in producer thread
+
 `03a5180` `2025-10-14 13:50` Add logs for producer thread
+
 `1f7714e` `2025-10-14 13:49` Add an item to the buffer in the producer thread
+
 `ea6d713` `2025-10-14 13:42` Wait on locks for producer
+
 `0b4b394` `2025-10 -14 13:34`Setup semaphore flags for shared data
+
 `46e2ae7` `2025-10-14 13:32`Initialize shared memory and semaphores
+
 `ea28cde` `2025-10-14 13:26`Begin producer thread code
+
 `af867f0` `2025-10-14 13:16`Start working on producer thread
+
 `4f626e3` `2025-10-14 12:39`Set up SharedData struct
+
 `5dfc03f` `2025-10-14 12:36`Add producer.cpp and consumer.cpp
+
 `c9ae657` `2025-10-14 12:25` Initial commit
 
 
